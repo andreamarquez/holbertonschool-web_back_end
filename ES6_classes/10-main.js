@@ -8,7 +8,7 @@ const tc2 = tc1.cloneCar();
 console.log(tc1);
 console.log(tc1 instanceof TestCar);
 
-console.log(tc2);
+console.log(tc2); 
 console.log(tc2 instanceof TestCar);
 
-console.log(tc1 === tc2); // Use strict equality
+console.log(tc1 === tc2);
