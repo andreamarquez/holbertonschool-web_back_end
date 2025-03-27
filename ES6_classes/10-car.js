@@ -20,6 +20,10 @@ export default class Car {
   // Method to clone the car
   cloneCar() {
     const Constructor = this.constructor; // Dynamically get the class of the current object
-    return new Constructor(this._brand, this._motor, this._color); // Pass attributes to the new instance
+    return new Constructor(
+      this._brand,
+      this._motor,
+      this._color,
+    ); // Pass attributes to the new instance
   }
 }
