@@ -1,1 +1,6 @@
-show dbs print()
+use logs
+db.example.insertOne({ message: "This is a log entry" })
+db.adminCommand('listDatabases').databases.forEach(function(database) {
+    print(database.name + "\t\t" + (database.sizeOnDisk / (1024 * 1024 * 1024)).toFixed(3) + "GB");
+});
+ 
