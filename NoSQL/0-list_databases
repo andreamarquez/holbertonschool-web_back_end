@@ -1,1 +1,4 @@
-show dbs
+db.adminCommand('listDatabases').databases.forEach(function(database) {
+    // Use string padding for consistent alignment
+    print(database.name.padEnd(13) + (database.sizeOnDisk / (1024 * 1024 * 1024)).toFixed(3) + "GB");
+});
