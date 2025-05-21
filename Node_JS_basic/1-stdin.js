@@ -9,5 +9,7 @@ process.stdin.on('data', (input) => {
 });
 
 process.on('exit', () => {
-  console.log('This important software is now closing');
+  if (!process.stdin.isTTY) {
+    console.log('This important software is now closing');
+  }
 });
