@@ -2,36 +2,27 @@ const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    // Read the file asynchronously
     fs.readFile(path, 'utf-8', (err, data) => {
       if (err) {
-        // Reject the promise if the file cannot be read
         reject(new Error('Cannot load the database'));
         return;
       }
 
       try {
-        // Split the file content into lines and filter out empty lines
         const lines = data.split('\n').filter((line) => line.trim() !== '');
-
-        // Remove the header line
         const header = lines.shift();
 
         if (!header) {
           throw new Error('Cannot load the database');
         }
 
-        // Parse the remaining lines into student records
         const students = lines.map((line) => line.split(','));
+        const totalStudents = students.length;
 
-        // Log the total number of students
-        console.log(`Number of students: ${students.length}`);
-
-        // Group students by field
         const fields = {};
         students.forEach((student) => {
-          const field = student[3]; // The field is the 4th column
-          const firstname = student[0]; // The first name is the 1st column
+          const field = student[3];
+          const firstname = student[0];
 
           if (!fields[field]) {
             fields[field] = [];
@@ -39,15 +30,13 @@ function countStudents(path) {
           fields[field].push(firstname);
         });
 
-        // Log the number of students and their names for each field
+        let output = `Number of students: ${totalStudents}\n`;
         for (const [field, names] of Object.entries(fields)) {
-          console.log(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
+          output += `Number of students in ${field}: ${names.length}. List: ${names.join(', ')}\n`;
         }
 
-        // Resolve the promise
-        resolve();
+        resolve(output.trim()); // Resolve with the formatted output
       } catch (error) {
-        // Reject the promise if there is an error processing the file
         reject(new Error('Cannot load the database'));
       }
     });
